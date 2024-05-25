@@ -1,8 +1,10 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/effects.dart';
 import 'package:flutter/material.dart';
 
 import '../brickbreakergame.dart';
+import 'bat.dart';
 import 'game_area.dart';
 
 class Ball extends CircleComponent 
@@ -43,9 +45,16 @@ class Ball extends CircleComponent
       } else if (intersectionPoints.first.x >= game.width){
         velocity.x *= -1;
       } else if (intersectionPoints.first.y >= game.height){
-        removeFromParent();
+        add(RemoveEffect(
+          delay: 0.35
+        ));
       }
-    } else {
+    } else if (other is Bat){
+      velocity.y *= -1;
+      velocity.x = velocity.x +
+        (position.x - other.position.x) / other.size.x * game.width * 0.3;
+
+    }else {
       debugPrint('Collision with $other');      
     }
   }
