@@ -38,8 +38,15 @@ class Ball extends CircleComponent
     if(other is GameArea){
       if (intersectionPoints.first.y <= 0){
         velocity.y *= -1;
+      } else if (intersectionPoints.first.x <= 0){
+        velocity.x *= -1;
+      } else if (intersectionPoints.first.x >= game.width){
+        velocity.x *= -1;
+      } else if (intersectionPoints.first.y >= game.height){
+        removeFromParent();
       }
-      velocity.y *= -1;
+    } else {
+      debugPrint('Collision with $other');      
     }
   }
   
