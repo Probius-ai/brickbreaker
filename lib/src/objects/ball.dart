@@ -20,7 +20,7 @@ class Ball extends CircleComponent {
   @override
   void update(double dt) {
     // Add your update logic here
-    super.update(double dt);
+    super.update(dt);
     position += velocity * dt;
   }
   
