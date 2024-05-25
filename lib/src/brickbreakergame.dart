@@ -35,6 +35,7 @@ class BrickBreaker extends FlameGame
 
     // Add the ball to the game
     world.add(Ball(
+      difficultyModifier: difficultyModifier,
       radius: ballRadius,
       position: size / 2,
       velocity: Vector2((rand.nextDouble() -0.5)*width,height * 0.2) // Random velocity
@@ -48,6 +49,18 @@ class BrickBreaker extends FlameGame
       size: Vector2(batWidth, batHeight),
     ));
 
+    // Add the bricks to the game
+    await world.add([
+      for (var i = 0; i < brickRows; i++)
+        for (var j = 0; j < brickColumns; j++)
+          Brick(
+            position: Vector2(
+              j * (brickWidth + brickPadding) + brickMargin,
+              i * (brickHeight + brickPadding) + brickMargin,
+            ),
+            color: Color((0xFFFFFF00 * rand.nextDouble()).toInt() << 0),
+          ),
+    ]);
     debugMode = true;
   }
 
