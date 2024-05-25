@@ -16,7 +16,8 @@ class BrickBreaker extends FlameGame{
         height: gameHeight,
         ),
     );
-  
+
+  final rand = math.Random();
   double get width => size.x;
   double get height => size.y;
 
@@ -27,11 +28,14 @@ class BrickBreaker extends FlameGame{
     camera.viewfinder.anchor = Anchor.topLeft;
 
     world.add(GameArea());
-
-    world.add(Ball()
-      ..position = Vector2(width / 2, height / 2)
-      ..angle = math.pi / 4
-    );
+    
+    // Add the ball to the game
+    world.add(Ball(
+      radius: ballRadius,
+      position: size / 2,
+      velocity: Vector2((rand.nextDouble() -0.5)*width,height * 0.2) // Random velocity
+    .normalized()
+    ..scale(height/4)));
 
     debugMode = true;
   }
