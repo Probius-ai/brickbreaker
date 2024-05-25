@@ -1,4 +1,2 @@
-export 'file1.dart';
-export 'file2.dart';
-export 'file3.dart';
+export 'game_area.dart';
 // Add more export statements for additional files
