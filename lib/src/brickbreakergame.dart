@@ -50,15 +50,15 @@ class BrickBreaker extends FlameGame
     ));
 
     // Add the bricks to the game
-    await world.add([
-      for (var i = 0; i < brickRows; i++)
-        for (var j = 0; j < brickColumns; j++)
+    await world.addAll([
+      for (var i = 0; i < brickColors.length; i++)
+        for (var j = 0; j < 5; j++)
           Brick(
             position: Vector2(
-              j * (brickWidth + brickPadding) + brickMargin,
-              i * (brickHeight + brickPadding) + brickMargin,
+              (i+0.5 ) * brickWidth + (i+1) * brickGutter,
+              (j+2.0 ) * brickHeight + j*brickGutter,
             ),
-            color: Color((0xFFFFFF00 * rand.nextDouble()).toInt() << 0),
+            color: brickColors[i],
           ),
     ]);
     debugMode = true;
