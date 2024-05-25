@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
@@ -26,6 +27,13 @@ class BrickBreaker extends FlameGame{
     camera.viewfinder.anchor = Anchor.topLeft;
 
     world.add(GameArea());
+
+    world.add(Ball()
+      ..position = Vector2(width / 2, height / 2)
+      ..angle = math.pi / 4
+    );
+
+    debugMode = true;
   }
 
 }
