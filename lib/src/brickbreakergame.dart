@@ -1,13 +1,17 @@
 import 'dart:math' as math;
 
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flame/game.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'objects/obj.dart';
 import 'config.dart';
 
 
-class BrickBreaker extends FlameGame with HasCollisionDetection {
+class BrickBreaker extends FlameGame 
+  with HasCollisionDetection, KeyboardEvents {
   // Add your class members and methods here
   BrickBreaker()
     : super(
@@ -36,8 +40,30 @@ class BrickBreaker extends FlameGame with HasCollisionDetection {
       velocity: Vector2((rand.nextDouble() -0.5)*width,height * 0.2) // Random velocity
         .normalized()
         ..scale(height/4)));
+        
+    // Add the bat to the game
+    world.add(Bat(
+      cornerRadius: const Radius.circular(ballRadius / 2),
+      position: Vector2(width / 2, height *0.95),
+      size: Vector2(batWidth, batHeight),
+    ));
 
     debugMode = true;
+  }
+
+  @override
+  KeyEventResult onKeyEvent(
+    KeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
+    // Add your key event handling logic here
+    super.onKeyEvent(event, keysPressed);
+    switch (event.logicalKey){
+      case LogicalKeyboardKey.arrowLeft:
+        world.children.query<Bat>().first.moveBy(-batStep);
+      case LogicalKeyboardKey.arrowRight:
+        world.children.query<Bat>().first.moveBy(batStep);
+    }
+
+    return KeyEventResult.handled;
   }
 
 }
