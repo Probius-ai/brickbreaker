@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../brickbreakergame.dart';
 import 'bat.dart';
+import 'brick.dart';
 import 'game_area.dart';
 
 class Ball extends CircleComponent 
@@ -14,6 +15,7 @@ class Ball extends CircleComponent
     required this.velocity,
     required super.position,
     required double radius,
+    required this.difficultyModifier,
   }) :super(
     anchor: Anchor.center,
     radius: radius,
@@ -24,6 +26,7 @@ class Ball extends CircleComponent
 
 
   final Vector2 velocity;
+  final double difficultyModifier;
   
   @override
   void update(double dt) {
@@ -37,7 +40,7 @@ class Ball extends CircleComponent
     Set<Vector2> intersectionPoints, PositionComponent other) {
     // Add your collision logic here
     super.onCollisionStart(intersectionPoints, other);
-    if(other is GameArea){
+    if(other is GameArea){// Check if the ball hits the game area
       if (intersectionPoints.first.y <= 0){
         velocity.y *= -1;
       } else if (intersectionPoints.first.x <= 0){
@@ -49,13 +52,22 @@ class Ball extends CircleComponent
           delay: 0.35
         ));
       }
-    } else if (other is Bat){
+    } else if (other is Bat){// Check if the ball hits the bat
       velocity.y *= -1;
       velocity.x = velocity.x +
         (position.x - other.position.x) / other.size.x * game.width * 0.3;
 
-    }else {
-      debugPrint('Collision with $other');      
+    }else if (other is Brick){// Check if the ball hits a brick
+        if ( position.y < other.position.y - other.size.y / 2 ){
+          velocity.y *= -1;
+        } else if (position.y > other.position.y + other.size.y / 2){
+          velocity.y *= -1;
+        } else if (position.x < other.position.x){
+          velocity.x *= -1;
+        } else if (position.x > other.position.x){
+          velocity.x *= -1;
+        }
+        velocity.setFrom(velocity * difficultyModifier);// Increase the speed of the ball with difficultyModifier
     }
   }
   
