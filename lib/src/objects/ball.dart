@@ -1,7 +1,12 @@
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
-class Ball extends CircleComponent {
+import '../brickbreakergame.dart';
+import 'game_area.dart';
+
+class Ball extends CircleComponent 
+  with HasGameReference<BrickBreaker>, CollisionCallbacks{
   // Add your properties and methods here
   Ball({
     required this.velocity,
@@ -12,7 +17,8 @@ class Ball extends CircleComponent {
     radius: radius,
     paint: Paint()
     ..color = const Color(0xFFFFFFFF)
-    ..style = PaintingStyle.fill);
+    ..style = PaintingStyle.fill,
+    children: [CircleHitbox()],);
 
 
   final Vector2 velocity;
@@ -22,6 +28,19 @@ class Ball extends CircleComponent {
     // Add your update logic here
     super.update(dt);
     position += velocity * dt;
+  }
+
+  @override
+  void onCollisionStart(
+    Set<Vector2> intersectionPoints, PositionComponent other) {
+    // Add your collision logic here
+    super.onCollisionStart(intersectionPoints, other);
+    if(other is GameArea){
+      if (intersectionPoints.first.y <= 0){
+        velocity.y *= -1;
+      }
+      velocity.y *= -1;
+    }
   }
   
   @override
