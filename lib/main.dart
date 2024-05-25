@@ -5,5 +5,5 @@ import 'src/brickbreakergame.dart';
 
 void main() {
   final game = BrickBreaker();
-  runApp(Gamewidget(game: game));
+  runApp(GameWidget(game: game));
 }
