@@ -1,2 +1,2 @@
-const gameWidth = 800;
-const gameHeight = 600;
+const gameWidth = 800.0;
+const gameHeight = 600.0;

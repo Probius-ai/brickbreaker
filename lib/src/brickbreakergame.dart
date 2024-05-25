@@ -25,7 +25,7 @@ class BrickBreaker extends FlameGame{
 
     camera.viewfinder.anchor = Anchor.topLeft;
 
-    world.add(gameArea());
+    world.add(GameArea());
   }
 
 }
