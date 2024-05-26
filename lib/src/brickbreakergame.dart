@@ -54,6 +54,22 @@ class BrickBreaker extends FlameGame
 
     world.add(GameArea());
 
+    playState = PlayState.welcome;
+  }
+
+  void startGame() {
+
+    if (playState == PlayState.playing) {
+      return;
+    }
+
+    world.removeAll(world.children.query<Ball>());
+    world.removeAll(world.children.query<Brick>());
+    world.removeAll(world.children.query<Bat>());
+
+    playState = PlayState.playing;
+
+
     // Add the ball to the game
     world.add(Ball(
       difficultyModifier: difficultyModifier,
@@ -71,7 +87,7 @@ class BrickBreaker extends FlameGame
     ));
 
     // Add the bricks to the game
-    await world.addAll([
+    world.addAll([
       for (var i = 0; i < brickColors.length; i++)
         for (var j = 0; j < 5; j++)
           Brick(
@@ -82,7 +98,12 @@ class BrickBreaker extends FlameGame
             color: brickColors[i],
           ),
     ]);
-    debugMode = true;
+  }
+
+  @override
+  void onTap(){
+    super.onTap();
+    startGame();
   }
 
   @override
