@@ -50,9 +50,4 @@ class Bat extends PositionComponent
       ));
   }
 
-
-  @override
-  void update(double dt) {
-    // Implement the update logic for the bat
-  }
 }
