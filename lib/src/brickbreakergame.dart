@@ -33,12 +33,15 @@ class BrickBreaker extends FlameGame
     switch (playState){
       case PlayState.welcome:
         break;
-      case PlayState.playing:
-        break;
       case PlayState.gameOver:
         break;
       case PlayState.gameWon:
         overlays.add(playState.name);
+        break;
+      case PlayState.playing:
+        overlays.remove(PlayState.gameWon.name);
+        overlays.remove(PlayState.gameOver.name);
+        overlays.remove(PlayState.welcome.name);
         break;
     }
   }
