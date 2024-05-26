@@ -9,9 +9,10 @@ import 'package:flutter/services.dart';
 import 'objects/obj.dart';
 import 'config.dart';
 
+enum PlayState { welcome, playing, gameOver, gameWon } // play states
 
 class BrickBreaker extends FlameGame 
-  with HasCollisionDetection, KeyboardEvents {
+  with HasCollisionDetection, KeyboardEvents, TapDetector {
   // Add your class members and methods here
   BrickBreaker()
     : super(
@@ -24,6 +25,23 @@ class BrickBreaker extends FlameGame
   final rand = math.Random();
   double get width => size.x;
   double get height => size.y;
+
+  late PlayState _playState;
+  PlayState get playState => _playState;
+  set playState(PlayState playState){
+    _playState = playState;
+    switch (playState){
+      case PlayState.welcome:
+        break;
+      case PlayState.playing:
+        break;
+      case PlayState.gameOver:
+        break;
+      case PlayState.gameWon:
+        overlays.add(playState.name);
+        break;
+    }
+  }
 
   @override
   Future<void> onLoad() async {
