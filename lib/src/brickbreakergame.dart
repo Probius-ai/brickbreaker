@@ -63,6 +63,7 @@ class BrickBreaker extends FlameGame
     world.removeAll(world.children.query<Ball>());
     world.removeAll(world.children.query<Brick>());
     world.removeAll(world.children.query<Bat>());
+
     // Set the play state to playing
     playState = PlayState.playing;
     // Reset the score
@@ -88,7 +89,7 @@ class BrickBreaker extends FlameGame
     // Add the bricks to the game
     world.addAll([
       for (var i = 0; i < brickColors.length; i++)
-        for (var j = 0; j < 5; j++)
+        for (var j = 1; j < 5; j++)
           Brick(
             position: Vector2(
               (i+0.5 ) * brickWidth + (i+1) * brickGutter,
