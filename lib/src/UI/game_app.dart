@@ -58,8 +58,8 @@ class _GameAppState extends State<GameApp> {
                         child: SizedBox(
                           width: gameWidth,
                           height: gameHeight,
-                          child: GameWidget.controlled(
-                            gameFactory: BrickBreaker.new,
+                          child: GameWidget(
+                            game: game,
                             overlayBuilderMap: {
                               PlayState.welcome.name: (context, game) => const OverlayScreen(
                                 title: 'TAP TO PLAY',
