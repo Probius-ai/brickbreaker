@@ -92,7 +92,7 @@ class BrickBreaker extends FlameGame
           Brick(
             position: Vector2(
               (i+0.5 ) * brickWidth + (i+1) * brickGutter,
-              (j+2.0 ) * brickHeight + j*brickGutter,
+              (j+2.0 ) * brickHeight + j * brickGutter,
             ),
             color: brickColors[i],
           ),
