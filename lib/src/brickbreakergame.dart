@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:html';
 import 'dart:math' as math;
 
 import 'package:flame/components.dart';
