@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:html';
 import 'dart:math' as math;
 
 import 'package:flame/components.dart';
@@ -115,6 +116,9 @@ class BrickBreaker extends FlameGame
         world.children.query<Bat>().first.moveBy(-batStep);
       case LogicalKeyboardKey.arrowRight:
         world.children.query<Bat>().first.moveBy(batStep);
+      case LogicalKeyboardKey.space:// press space or enter to start the game
+      case LogicalKeyboardKey.enter:
+        startGame();
     }
 
     return KeyEventResult.handled;
