@@ -17,8 +17,8 @@ class Brick extends RectangleComponent
     size: Vector2(brickWidth, brickHeight),
     anchor: Anchor.center,
     paint: Paint()
-    ..color = color
-    ..style = PaintingStyle.fill,
+      ..color = color
+      ..style = PaintingStyle.fill,
     children: [RectangleHitbox()],
     );
 
@@ -28,20 +28,12 @@ class Brick extends RectangleComponent
     // Implement the collision logic for the brick
     super.onCollisionStart(intersectionPoints, other);
     removeFromParent();
+    game.score.value += 1;
 
     if(game.world.children.query<Brick>().length == 1){
+      game.playState = PlayState.gameWon;
       game.world.removeAll(game.world.children.query<Ball>());
       game.world.removeAll(game.world.children.query<Bat>());
     }
-  }
-  
-  @override
-  void render(Canvas canvas) {
-    // Implement the rendering logic for the brick
-  }
-  
-  @override
-  void update(double dt) {
-    // Implement the update logic for the brick
   }
 }
