@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flame/components.dart';
@@ -21,7 +22,7 @@ class BrickBreaker extends FlameGame
         height: gameHeight,
         ),
     );
-
+  final ValueNotifier<int> score = ValueNotifier(0);
   final rand = math.Random();
   double get width => size.x;
   double get height => size.y;
@@ -32,17 +33,13 @@ class BrickBreaker extends FlameGame
     _playState = playState;
     switch (playState){
       case PlayState.welcome:
-        break;
       case PlayState.gameOver:
-        break;
       case PlayState.gameWon:
         overlays.add(playState.name);
-        break;
       case PlayState.playing:
+        overlays.remove(PlayState.welcome.name);
         overlays.remove(PlayState.gameWon.name);
         overlays.remove(PlayState.gameOver.name);
-        overlays.remove(PlayState.welcome.name);
-        break;
     }
   }
 
@@ -66,8 +63,10 @@ class BrickBreaker extends FlameGame
     world.removeAll(world.children.query<Ball>());
     world.removeAll(world.children.query<Brick>());
     world.removeAll(world.children.query<Bat>());
-
+    // Set the play state to playing
     playState = PlayState.playing;
+    // Reset the score
+    score.value = 0;
 
 
     // Add the ball to the game
