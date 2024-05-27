@@ -1,9 +1,7 @@
-import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
-import 'src/brickbreakergame.dart';
+import 'package:brickbreaker/src/UI/game_app.dart';
 
 void main() {
-  final game = BrickBreaker();
-  runApp(Gamewidget(game: game));
+  runApp(const GameApp());
 }

@@ -21,7 +21,7 @@ class Bat extends PositionComponent
     final Radius cornerRadius;
 
     final _paint = Paint()
-      ..color = const Color(0xFFFFFFFF)
+      ..color = Color.fromARGB(255, 0, 0, 0) //have to modify color
       ..style = PaintingStyle.fill;
   
   @override
@@ -50,9 +50,4 @@ class Bat extends PositionComponent
       ));
   }
 
-
-  @override
-  void update(double dt) {
-    // Implement the update logic for the bat
-  }
 }

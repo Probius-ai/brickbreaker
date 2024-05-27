@@ -9,7 +9,7 @@ import '../brickbreakergame.dart';
 class GameArea extends RectangleComponent with HasGameReference<BrickBreaker> {
   GameArea() 
     :super(
-      paint: Paint()..color = const Color(0xFFFFFFFF),
+      paint: Paint()..color = const Color(0xFFFFFFFF), //have to modify color
       children: [RectangleHitbox()],
     );
 
