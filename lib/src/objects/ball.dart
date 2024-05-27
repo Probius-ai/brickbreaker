@@ -49,7 +49,10 @@ class Ball extends CircleComponent
         velocity.x *= -1;
       } else if (intersectionPoints.first.y >= game.height){
         add(RemoveEffect(
-          delay: 0.35
+          delay: 0.35,
+          onComplete: () {
+            game.playState = PlayState.gameOver;
+          },
         ));
       }
     } else if (other is Bat){// Check if the ball hits the bat
@@ -69,10 +72,5 @@ class Ball extends CircleComponent
         }
         velocity.setFrom(velocity * difficultyModifier);// Increase the speed of the ball with difficultyModifier
     }
-  }
-  
-  @override
-  void render(Canvas canvas) {
-    // Add your rendering logic here
   }
 }
