@@ -24,7 +24,7 @@ class Ball extends CircleComponent
     ..style = PaintingStyle.fill,
     children: [CircleHitbox()],);
 
-
+  int streak = 0; // testing streaks
   final Vector2 velocity;
   final double difficultyModifier;
   
@@ -59,6 +59,7 @@ class Ball extends CircleComponent
       velocity.y *= -1;
       velocity.x = velocity.x +
         (position.x - other.position.x) / other.size.x * game.width * 0.3;
+      streak = 0; //reset streak
 
     }else if (other is Brick){// Check if the ball hits a brick
         if ( position.y < other.position.y - other.size.y / 2 ){
@@ -71,6 +72,7 @@ class Ball extends CircleComponent
           velocity.x *= -1;
         }
         velocity.setFrom(velocity * difficultyModifier);// Increase the speed of the ball with difficultyModifier
+        streak += 1; // Increase the streak
     }
   }
 }
