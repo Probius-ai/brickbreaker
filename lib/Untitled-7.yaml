@@ -1,0 +1,7 @@
+dependencies:
+  flutter:
+    sdk: flutter
+  audioplayers: ^0.20.1
+flutter:
+  assets:
+    - assets/sound_effect.mp3
