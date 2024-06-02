@@ -2,6 +2,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 import '../brickbreakergame.dart';
 import 'bat.dart';
@@ -34,6 +35,12 @@ class Ball extends CircleComponent
     super.update(dt);
     position += velocity * dt;
   }
+  AudioPlayer _audioPlayer = AudioPlayer();
+
+  // Function to play sound
+  void _playSound(String sound) async {
+    await _audioPlayer.play(AssetSource('assets/$sound'));
+  }
 
   @override
   void onCollisionStart(
@@ -61,6 +68,7 @@ class Ball extends CircleComponent
         (position.x - other.position.x) / other.size.x * game.width * 0.3;
 
     }else if (other is Brick){// Check if the ball hits a brick
+    _playSound('sound_effect.mp3');
         if ( position.y < other.position.y - other.size.y / 2 ){
           velocity.y *= -1;
         } else if (position.y > other.position.y + other.size.y / 2){
