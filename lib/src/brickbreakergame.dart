@@ -7,6 +7,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+
 import 'objects/obj.dart';
 import 'config.dart';
 
@@ -68,7 +69,7 @@ class BrickBreaker extends FlameGame
     playState = PlayState.playing;
     // Reset the score
     score.value = 0;
-
+    
 
     // Add the ball to the game
     world.add(Ball(
