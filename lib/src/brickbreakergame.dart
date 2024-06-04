@@ -22,6 +22,7 @@ class BrickBreaker extends FlameGame
         height: gameHeight,
         ),
     );
+  final ValueNotifier<int> streak = ValueNotifier(0);
   final ValueNotifier<int> score = ValueNotifier(0);
   final rand = math.Random();
   double get width => size.x;
