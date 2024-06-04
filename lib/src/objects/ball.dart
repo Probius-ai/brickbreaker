@@ -21,7 +21,7 @@ class Ball extends CircleComponent
     anchor: Anchor.center,
     radius: radius,
     paint: Paint()
-    ..color = Color.fromARGB(255, 255, 0, 0)
+    ..color = const Color.fromARGB(255, 255, 0, 0)
     ..style = PaintingStyle.fill,
     children: [CircleHitbox()],);
 
@@ -35,7 +35,7 @@ class Ball extends CircleComponent
     super.update(dt);
     position += velocity * dt;
   }
-  AudioPlayer _audioPlayer = AudioPlayer();
+  final AudioPlayer _audioPlayer = AudioPlayer();
 
   // Function to play sound
   void _playSound(String sound) async {
