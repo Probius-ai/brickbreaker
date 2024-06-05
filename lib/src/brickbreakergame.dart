@@ -23,7 +23,7 @@ class BrickBreaker extends FlameGame
         ),
     );
   final ValueNotifier<int> streak = ValueNotifier(0);
-  final ValueNotifier<int> score = ValueNotifier(1);
+  final ValueNotifier<int> score = ValueNotifier(0);
   final rand = math.Random();
   double get width => size.x;
   double get height => size.y;
