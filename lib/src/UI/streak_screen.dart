@@ -12,7 +12,7 @@ class StreakScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ValueListenableBuilder<int>(
       valueListenable: streak,
-      builder: (context, score, child) {
+      builder: (context, streak, child) {
         return Padding(
           padding: const EdgeInsets.fromLTRB(12,18,12,30),
           child: Text(
