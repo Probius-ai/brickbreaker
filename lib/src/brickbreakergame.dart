@@ -13,14 +13,6 @@ import 'config.dart';
 enum PlayState { welcome, playing, gameOver, gameWon }
 
 class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents, TapDetector {
-  BrickBreaker()
-      : super(
-    camera: CameraComponent.withFixedResolution(
-      width: gameWidth,
-      height: gameHeight,
-    ),
-  );
-
   final ValueNotifier<int> score = ValueNotifier(0);
   final rand = math.Random();
   double get width => size.x;
@@ -47,11 +39,8 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
   @override
   Future<void> onLoad() async {
     super.onLoad();
-
     camera.viewfinder.anchor = Anchor.topLeft;
-
     world.add(GameArea());
-
     playState = PlayState.welcome;
   }
 
@@ -67,13 +56,11 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
     playState = PlayState.playing;
     score.value = 0;
 
-    final newBallVelocity = Vector2((rand.nextDouble() - 0.5) * width, height * 0.2) * difficulty;
-
     world.add(Ball(
-      difficultyModifier: difficulty,
+      difficultyModifier: difficultyModifier * difficulty,
       radius: ballRadius,
       position: size / 2,
-      velocity: newBallVelocity.normalized()..scale(height / 4),
+      velocity: Vector2((rand.nextDouble() - 0.5) * width, height * 0.2).normalized()..scale(height / 4),
     ));
 
     world.add(Bat(
@@ -82,9 +69,11 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
       size: Vector2(batWidth, batHeight),
     ));
 
+    int rows = (4 * difficulty).round();
+
     world.addAll([
       for (var i = 0; i < brickColors.length; i++)
-        for (var j = 1; j < 5; j++)
+        for (var j = 1; j <= rows; j++)
           Brick(
             position: Vector2(
               (i + 0.5) * brickWidth + (i + 1) * brickGutter,
@@ -98,7 +87,7 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
   @override
   void onTap() {
     super.onTap();
-    startGame(difficulty: 1.0);
+    playState = PlayState.welcome;
   }
 
   @override
@@ -113,7 +102,7 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
         break;
       case LogicalKeyboardKey.space:
       case LogicalKeyboardKey.enter:
-        startGame(difficulty: 1.0);
+        startGame(difficulty: 1.0); // 기본 난이도로 게임 시작
         break;
     }
 
