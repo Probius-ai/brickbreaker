@@ -7,7 +7,7 @@ import '../brickbreakergame.dart';
 import '../config.dart';
 import 'overlay_screen.dart';
 import 'score_screen.dart';
-import 'streak_screen.dart';
+import 'streak_screen.dart'; //have to fix
 
 class GameApp extends StatefulWidget {
   const GameApp({super.key});
