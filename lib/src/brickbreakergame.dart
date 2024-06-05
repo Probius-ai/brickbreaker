@@ -7,6 +7,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+
 import 'objects/obj.dart';
 import 'config.dart';
 
@@ -55,7 +56,7 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
 
     playState = PlayState.playing;
     score.value = 0;
-
+    
     world.add(Ball(
       difficultyModifier: difficultyModifier * difficulty,
       radius: ballRadius,
