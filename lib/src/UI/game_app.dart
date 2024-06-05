@@ -77,12 +77,12 @@ class _GameAppState extends State<GameApp> {
                                 subtitle: 'Tap to play again',
                               ),
                             },
-                          ),  //GameWidget
-                        ),  //SizedBox
-                      ),  //FittedBox
-                    ),  //Expanded
-                  ],  //List
-                ),  //Column
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
             ),
           ),
         ),
