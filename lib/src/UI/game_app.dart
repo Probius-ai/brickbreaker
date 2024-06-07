@@ -6,6 +6,7 @@ import '../brickbreakergame.dart';
 import '../config.dart';
 import 'overlay_screen.dart';
 import 'score_screen.dart';
+import 'difficulty_overlay.dart';
 
 class GameApp extends StatefulWidget {
   const GameApp({super.key});
@@ -33,7 +34,7 @@ class _GameAppState extends State<GameApp> {
           bodyColor: const Color(0xff184e77),
           displayColor: const Color(0xff184e77),
         ),
-      ),  //ThemeData
+      ),  // ThemeData
       home: Scaffold(
         body: Container(
           decoration: const BoxDecoration(
@@ -44,8 +45,8 @@ class _GameAppState extends State<GameApp> {
                 Color(0xffa9d6e5),
                 Color(0xfff2e8cf),
               ],
-            ),  //LinearGradient
-          ),  //BoxDecoration
+            ),  // LinearGradient
+          ),  // BoxDecoration
           child: SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -61,30 +62,28 @@ class _GameAppState extends State<GameApp> {
                           child: GameWidget(
                             game: game,
                             overlayBuilderMap: {
-                              PlayState.welcome.name: (context, game) => const OverlayScreen(
-                                title: 'TAP TO PLAY',
-                                subtitle: 'Use arrow keys to move paddle',
-                              ),
-                              PlayState.gameOver.name: (context, game) => const OverlayScreen(
+                              PlayState.welcome.name: (context, BrickBreaker game) => DifficultyOverlay(game: game),  //dificulty overaly
+                              PlayState.gameOver.name: (context, BrickBreaker game) => const OverlayScreen(
                                 title: 'G A M E   O V E R',
                                 subtitle: 'Tap to play again',
                               ),
-                              PlayState.gameWon.name: (context, game) => const OverlayScreen(
+                              PlayState.gameWon.name: (context, BrickBreaker game) => const OverlayScreen(
                                 title: 'Y O U   W O N ! ! !',
                                 subtitle: 'Tap to play again',
                               ),
                             },
-                          ),  //GameWidget
-                        ),  //SizedBox
-                      ),  //FittedBox
-                    ),  //Expanded
-                  ],  //List
-                ),  //Column
+                          ),  // GameWidget
+                        ),  // SizedBox
+                      ),  // FittedBox
+                    ),  // Expanded
+                  ],  // List
+                ),  // Column
+              ),
             ),
           ),
         ),
       ),
-    ),
     );
   }
 }
+

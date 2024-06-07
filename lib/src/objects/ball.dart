@@ -24,7 +24,7 @@ class Ball extends CircleComponent
     ..color = const Color.fromARGB(255, 255, 0, 0)
     ..style = PaintingStyle.fill,
     children: [CircleHitbox()],);
-
+    
 
   final Vector2 velocity;
   final double difficultyModifier;

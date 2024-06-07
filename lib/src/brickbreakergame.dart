@@ -8,8 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:audioplayers/audioplayers.dart';
 
+
 import 'objects/obj.dart';
 import 'config.dart';
+
 
 enum PlayState { welcome, playing, gameOver, gameWon } // play states
 
@@ -61,11 +63,8 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
   @override
   Future<void> onLoad() async {
     super.onLoad();
-
     camera.viewfinder.anchor = Anchor.topLeft;
-
     world.add(GameArea());
-
     playState = PlayState.welcome;
   }
 
@@ -80,7 +79,7 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
 
     playState = PlayState.playing;
     score.value = 0;
-
+    
     world.add(Ball(
       difficultyModifier: difficulty,
       radius: ballRadius,
@@ -96,9 +95,12 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
       size: Vector2(batWidth, batHeight),
     ));
 
+
+    int rows = (4 * difficulty).round();
+
     world.addAll([
       for (var i = 0; i < brickColors.length; i++)
-        for (var j = 1; j < 5; j++)
+        for (var j = 1; j <= rows; j++)
           Brick(
             position: Vector2(
               (i + 0.5) * brickWidth + (i + 1) * brickGutter,
@@ -113,6 +115,7 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
   void onTap() {
     super.onTap();
     startGame(difficulty: 1.0); // 예시로 기본 난이도 설정
+    playState = PlayState.welcome;
   }
 
   @override
@@ -127,7 +130,7 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
         break;
       case LogicalKeyboardKey.space:
       case LogicalKeyboardKey.enter:
-        startGame(difficulty: 1.0); // 예시로 기본 난이도 설정
+        startGame(difficulty: 1.0); // 기본 난이도로 게임 시작
         break;
     }
 
@@ -137,4 +140,3 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
   @override
   Color backgroundColor() => const Color(0xffa9d6e5);
 }
-
