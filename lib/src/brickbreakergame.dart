@@ -14,13 +14,12 @@ enum PlayState { welcome, playing, gameOver, gameWon } // play states
 
 class BrickBreaker extends FlameGame 
   with HasCollisionDetection, KeyboardEvents, TapDetector {
-  // Add your class members and methods here
   BrickBreaker()
     : super(
       camera: CameraComponent.withFixedResolution(
         width: gameWidth, 
         height: gameHeight,
-        ),
+      ),
     );
   final ValueNotifier<int> score = ValueNotifier(0);
   final rand = math.Random();
@@ -55,7 +54,6 @@ class BrickBreaker extends FlameGame
   }
 
   void startGame() {
-
     if (playState == PlayState.playing) {
       return;
     }
@@ -69,20 +67,20 @@ class BrickBreaker extends FlameGame
     // Reset the score
     score.value = 0;
 
-
     // Add the ball to the game
     world.add(Ball(
       difficultyModifier: difficultyModifier,
       radius: ballRadius,
       position: size / 2,
-      velocity: Vector2((rand.nextDouble() -0.5)*width,height * 0.2) // Random velocity
+      velocity: Vector2((rand.nextDouble() - 0.5) * width, height * 0.2) // Random velocity
         .normalized()
-        ..scale(height/4)));
-        
+        ..scale(height / 4),
+    ));
+
     // Add the bat to the game
     world.add(Bat(
       cornerRadius: const Radius.circular(ballRadius / 2),
-      position: Vector2(width / 2, height *0.95),
+      position: Vector2(width / 2, height * 0.95),
       size: Vector2(batWidth, batHeight),
     ));
 
@@ -92,8 +90,8 @@ class BrickBreaker extends FlameGame
         for (var j = 1; j < 5; j++)
           Brick(
             position: Vector2(
-              (i+0.5 ) * brickWidth + (i+1) * brickGutter,
-              (j+2.0 ) * brickHeight + j * brickGutter,
+              (i + 0.5) * brickWidth + (i + 1) * brickGutter,
+              (j + 2.0) * brickHeight + j * brickGutter,
             ),
             color: brickColors[i],
           ),
@@ -107,18 +105,19 @@ class BrickBreaker extends FlameGame
   }
 
   @override
-  KeyEventResult onKeyEvent(
-    KeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
-    // Add your key event handling logic here
+  KeyEventResult onKeyEvent(KeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     super.onKeyEvent(event, keysPressed);
     switch (event.logicalKey){
       case LogicalKeyboardKey.arrowLeft:
         world.children.query<Bat>().first.moveBy(-batStep);
+        break;
       case LogicalKeyboardKey.arrowRight:
         world.children.query<Bat>().first.moveBy(batStep);
-      case LogicalKeyboardKey.space:// press space or enter to start the game
+        break;
+      case LogicalKeyboardKey.space:
       case LogicalKeyboardKey.enter:
         startGame();
+        break;
     }
 
     return KeyEventResult.handled;
@@ -126,5 +125,4 @@ class BrickBreaker extends FlameGame
 
   @override
   Color backgroundColor() => const Color(0xffa9d6e5);
-
 }
