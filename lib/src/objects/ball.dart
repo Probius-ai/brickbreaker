@@ -68,7 +68,7 @@ class Ball extends CircleComponent
         (position.x - other.position.x) / other.size.x * game.width * 0.3;
 
     }else if (other is Brick){// Check if the ball hits a brick
-    _playSound('sound_effect.mp3');
+    _playSound('BallSound.mp3');
         if ( position.y < other.position.y - other.size.y / 2 ){
           velocity.y *= -1;
         } else if (position.y > other.position.y + other.size.y / 2){
