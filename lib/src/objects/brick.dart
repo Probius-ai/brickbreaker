@@ -20,6 +20,7 @@ class Brick extends RectangleComponent
       ..color = color
       ..style = PaintingStyle.fill,
     children: [RectangleHitbox()],
+    
     );
 
   @override
