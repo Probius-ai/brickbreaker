@@ -35,11 +35,12 @@ class Ball extends CircleComponent
     super.update(dt);
     position += velocity * dt;
   }
-  final AudioPlayer _audioPlayer = AudioPlayer();
+  final _audioPlayer = AudioPlayer();
 
   // Function to play sound
   void _playSound(String sound) async {
-    await _audioPlayer.play(AssetSource('assets/$sound'));
+    await _audioPlayer.play(AssetSource('$sound'));
+    await _audioPlayer.play(DeviceFileSource("C:\OSS\brickbreaker\lib\src\assets\BallSound.mp3"));
   }
 
   @override
