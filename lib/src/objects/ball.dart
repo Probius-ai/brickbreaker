@@ -54,27 +54,20 @@ class Ball extends CircleComponent
       }
     } else if (other is Bat) {
       velocity.y *= -1;
-      velocity.x = velocity.x + (position.x - other.position.x) / other.size.x * game.width * 0.3;
-    } else if (other is Brick) {
-      if (position.y < other.position.y - other.size.y / 2) {
-        velocity.y *= -1;
-      } else if (position.y > other.position.y + other.size.y / 2) {
-        velocity.y *= -1;
-      } else if (position.x < other.position.x) {
-        velocity.x *= -1;
-      } else if (position.x > other.position.x) {
-        velocity.x *= -1;
-      }
-      velocity.setFrom(velocity * difficultyModifier);
+      velocity.x = velocity.x +
+        (position.x - other.position.x) / other.size.x * game.width * 0.3;
 
-      // Create and add a new ball
-      final newBall = Ball(
-        velocity: Vector2(velocity.x, -velocity.y),
-        position: Vector2(position.x, position.y),
-        radius: radius,
-        difficultyModifier: difficultyModifier,
-      );
-      game.world.add(newBall); // Ensure new ball is added to the world
-    } 
+    }else if (other is Brick){// Check if the ball hits a brick
+        if ( position.y < other.position.y - other.size.y / 2 ){
+          velocity.y *= -1;
+        } else if (position.y > other.position.y + other.size.y / 2){
+          velocity.y *= -1;
+        } else if (position.x < other.position.x){
+          velocity.x *= -1;
+        } else if (position.x > other.position.x){
+          velocity.x *= -1;
+        }
+        velocity.setFrom(velocity * difficultyModifier);// Increase the speed of the ball with difficultyModifier
+    }
   }
 }
