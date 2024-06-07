@@ -4,7 +4,7 @@ import '../brickbreakergame.dart';
 class DifficultyOverlay extends StatelessWidget {
   final BrickBreaker game;
 
-  const DifficultyOverlay({required this.game, Key? key}) : super(key: key);
+  const DifficultyOverlay({required this.game, super.key});
 
   @override
   Widget build(BuildContext context) {
