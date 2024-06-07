@@ -6,14 +6,24 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 
 import 'objects/obj.dart';
 import 'config.dart';
 
-enum PlayState { welcome, playing, gameOver, gameWon }
+
+enum PlayState { welcome, playing, gameOver, gameWon } // play states
 
 class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents, TapDetector {
+  BrickBreaker()
+      : super(
+    camera: CameraComponent.withFixedResolution(
+      width: gameWidth,
+      height: gameHeight,
+    ),
+  );
+
   final ValueNotifier<int> score = ValueNotifier(0);
   final rand = math.Random();
   double get width => size.x;
@@ -28,13 +38,26 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
       case PlayState.gameOver:
       case PlayState.gameWon:
         overlays.add(playState.name);
+        _stopBGM(); // 게임이 끝났을 때 음악을 멈춤
         break;
       case PlayState.playing:
         overlays.remove(PlayState.welcome.name);
         overlays.remove(PlayState.gameWon.name);
         overlays.remove(PlayState.gameOver.name);
+        _playBGM(); // 게임이 시작될 때 음악 재생
         break;
     }
+  }
+
+  final AudioPlayer _audioPlayer = AudioPlayer();
+
+  Future<void> _playBGM() async {
+    await _audioPlayer.setReleaseMode(ReleaseMode.loop);
+    await _audioPlayer.play(AssetSource('bgm.mp3'), volume: 0.25);
+  }
+
+  Future<void> _stopBGM() async {
+    await _audioPlayer.stop();
   }
 
   @override
@@ -58,10 +81,12 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
     score.value = 0;
     
     world.add(Ball(
-      difficultyModifier: difficultyModifier * difficulty,
+      difficultyModifier: difficulty,
       radius: ballRadius,
       position: size / 2,
-      velocity: Vector2((rand.nextDouble() - 0.5) * width, height * 0.2).normalized()..scale(height / 4),
+      velocity: Vector2((rand.nextDouble() - 0.5) * width, height * 0.2)
+          .normalized()
+        ..scale(height / 4),
     ));
 
     world.add(Bat(
@@ -69,6 +94,7 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
       position: Vector2(width / 2, height * 0.95),
       size: Vector2(batWidth, batHeight),
     ));
+
 
     int rows = (4 * difficulty).round();
 
@@ -88,6 +114,7 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
   @override
   void onTap() {
     super.onTap();
+    startGame(difficulty: 1.0); // 예시로 기본 난이도 설정
     playState = PlayState.welcome;
   }
 
