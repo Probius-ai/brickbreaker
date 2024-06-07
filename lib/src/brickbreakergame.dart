@@ -137,4 +137,4 @@ class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents,
   @override
   Color backgroundColor() => const Color(0xffa9d6e5);
 }
-}
+
