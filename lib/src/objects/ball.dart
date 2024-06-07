@@ -75,6 +75,6 @@ class Ball extends CircleComponent
         difficultyModifier: difficultyModifier,
       );
       game.world.add(newBall); // Ensure new ball is added to the world
-    }
+    } 
   }
 }
