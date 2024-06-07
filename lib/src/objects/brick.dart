@@ -28,7 +28,7 @@ class Brick extends RectangleComponent
     // Implement the collision logic for the brick
     super.onCollisionStart(intersectionPoints, other);
     removeFromParent();
-    if (game.streak.value == 0) {
+    if (game.streak.value == 0) { // when streak is 0 add 1 to score
       game.score.value += 1;
     } else {
       game.score.value += game.streak.value;

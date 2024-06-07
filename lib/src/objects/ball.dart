@@ -2,6 +2,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 import '../brickbreakergame.dart';
 import 'bat.dart';
@@ -21,10 +22,10 @@ class Ball extends CircleComponent
     anchor: Anchor.center,
     radius: radius,
     paint: Paint()
-    ..color = Color.fromARGB(255, 255, 0, 0)
+    ..color = const Color.fromARGB(255, 255, 0, 0)
     ..style = PaintingStyle.fill,
     children: [CircleHitbox()],);
-
+    
 
   final Vector2 velocity;
   final double difficultyModifier;
@@ -34,6 +35,12 @@ class Ball extends CircleComponent
     // Add your update logic here
     super.update(dt);
     position += velocity * dt;
+  }
+  final _audioPlayer = AudioPlayer();
+
+  // Function to play sound
+  void _playBrickSound() async {
+    await _audioPlayer.play(AssetSource('BallSound.mp3'));
   }
 
   @override
@@ -63,6 +70,7 @@ class Ball extends CircleComponent
       game.streak.value = 0; //reset streak
 
     }else if (other is Brick){// Check if the ball hits a brick
+    _playBrickSound();
         if ( position.y < other.position.y - other.size.y / 2 ){
           velocity.y *= -1;
         } else if (position.y > other.position.y + other.size.y / 2){
