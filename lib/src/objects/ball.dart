@@ -9,6 +9,7 @@ import 'bat.dart';
 import 'brick.dart';
 import 'game_area.dart';
 
+
 class Ball extends CircleComponent 
   with HasGameReference<BrickBreaker>, CollisionCallbacks{
   // Add your properties and methods here
@@ -66,6 +67,7 @@ class Ball extends CircleComponent
       velocity.y *= -1;
       velocity.x = velocity.x +
         (position.x - other.position.x) / other.size.x * game.width * 0.3;
+      game.streak.value = 0; //reset streak
 
     }else if (other is Brick){// Check if the ball hits a brick
     _playBrickSound();
@@ -79,6 +81,7 @@ class Ball extends CircleComponent
           velocity.x *= -1;
         }
         velocity.setFrom(velocity * difficultyModifier);// Increase the speed of the ball with difficultyModifier
+        game.streak.value += 1; // Increase the streak
     }
   }
 }

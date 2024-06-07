@@ -17,13 +17,13 @@ enum PlayState { welcome, playing, gameOver, gameWon } // play states
 
 class BrickBreaker extends FlameGame with HasCollisionDetection, KeyboardEvents, TapDetector {
   BrickBreaker()
-      : super(
-    camera: CameraComponent.withFixedResolution(
-      width: gameWidth,
-      height: gameHeight,
-    ),
-  );
-
+    : super(
+      camera: CameraComponent.withFixedResolution(
+        width: gameWidth, 
+        height: gameHeight,
+        ),
+    );
+  final ValueNotifier<int> streak = ValueNotifier(0);
   final ValueNotifier<int> score = ValueNotifier(0);
   final rand = math.Random();
   double get width => size.x;
