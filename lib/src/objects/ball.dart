@@ -47,9 +47,6 @@ class Ball extends CircleComponent
       } else if (intersectionPoints.first.y >= game.height) {
         add(RemoveEffect(
           delay: 0.35,
-          onComplete: () {
-            game.playState = PlayState.gameOver;
-          },
         ));
       }
     } else if (other is Bat) {
@@ -77,6 +74,12 @@ class Ball extends CircleComponent
         difficultyModifier: difficultyModifier,
       );
       game.world.add(newBall); // Ensure new ball is added to the world
+    }
+
+    if (game.world.children.query<Ball>().isEmpty) { //check if there are no more ball
+      game.playState = PlayState.gameOver;
+      game.world.removeAll(game.world.children.query<Brick>());
+      game.world.removeAll(game.world.children.query<Bat>());
     }
   }
 }
