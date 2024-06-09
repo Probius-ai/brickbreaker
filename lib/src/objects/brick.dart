@@ -20,6 +20,7 @@ class Brick extends RectangleComponent
       ..color = color
       ..style = PaintingStyle.fill,
     children: [RectangleHitbox()],
+    
     );
 
   @override
@@ -28,7 +29,11 @@ class Brick extends RectangleComponent
     // Implement the collision logic for the brick
     super.onCollisionStart(intersectionPoints, other);
     removeFromParent();
-    game.score.value += 1;
+    if (game.streak.value == 0) { // when streak is 0 add 1 to score
+      game.score.value += 1;
+    } else {
+      game.score.value += game.streak.value;
+    }
 
     if(game.world.children.query<Brick>().length == 1){
       game.playState = PlayState.gameWon;
