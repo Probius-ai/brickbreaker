@@ -21,7 +21,7 @@ class Bat extends PositionComponent
     final Radius cornerRadius;
 
     final _paint = Paint()
-      ..color = Color.fromARGB(255, 0, 0, 0) //have to modify color
+      ..color = const Color.fromARGB(255, 0, 0, 0) //have to modify color
       ..style = PaintingStyle.fill;
   
   @override
