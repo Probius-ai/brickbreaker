@@ -68,6 +68,15 @@ class Ball extends CircleComponent
           velocity.x *= -1;
         }
         velocity.setFrom(velocity * difficultyModifier);// Increase the speed of the ball with difficultyModifier
+
+        // Create and add a new ball
+      final newBall = Ball(
+        velocity: Vector2(velocity.x, -velocity.y),
+        position: Vector2(position.x, position.y),
+        radius: radius,
+        difficultyModifier: difficultyModifier,
+      );
+      game.world.add(newBall); // Ensure new ball is added to the world
     }
   }
 }
